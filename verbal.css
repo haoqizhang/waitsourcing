@@ -1,0 +1,40 @@
+.option {
+	width: 200px;
+	height: 50px;
+	font-size: 40px;
+
+}
+
+.imgoptions{
+	height:70%;
+	width:auto;
+	overflow:hidden;
+	    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+#right {	
+       position:absolute;
+       width: 45%;
+       left: 49%;
+       text-align:center;
+}
+
+#left {
+      position:absolute;
+       width: 45%;
+       text-align:center;
+}
+
+#score {
+	font-size:40px;
+	font-weight: 700;
+	color: pink;
+	height: 100px;
+}
+
+#prompt {
+  text-align: center;	
+  font-size: 70px;
+}
