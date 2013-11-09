@@ -5,6 +5,7 @@ var t = 0;
 var interval = 2000;
 var currentID = 0;
 
+var binary = false;
 
 $(function() {
 	init();
@@ -40,8 +41,15 @@ function getID() {
 function loadNew() {
     $('li:first').addClass('opaque');
     var current = currentID;
-    smoothAdd('photostream', photostream[current]);
-    currentID+=1;
+    if(binary){
+	var stuff = $('<div></div>').append(photostream[current]);
+	stuff.append(photostream[current+1]);
+	smoothAdd('photostream', stuff);
+	currentID+=2;
+    }else{
+	smoothAdd('photostream', photostream[current]);
+	currentID+=1;
+    }
     t = setTimeout(loadNew, interval);
 }
 	
