@@ -1,0 +1,14 @@
+{
+  "name": "SmileDetectJS",
+  "homepage": "https://github.com/roironn/SmileDetectJS",
+  "_release": "8522ee8b1f",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "8522ee8b1f5d06029ca7f786bc9ee350381307cb"
+  },
+  "_source": "https://github.com/roironn/SmileDetectJS.git",
+  "_target": "master",
+  "_originalSource": "https://github.com/roironn/SmileDetectJS.git",
+  "_direct": true
+}

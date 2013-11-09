@@ -2,48 +2,30 @@
 <head>
 <script type="text/javascript" src="bower_components/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="bower_components/photobooth-js/photobooth_min.js"></script>
+<script type="text/javascript" src="bower_components/SmileDetectJS/js/haar-detector.js"></script>
+<script type="text/javascript" src="bower_components/SmileDetectJS/js/smile-detector.js"></script>
 <script type="text/javascript" src="scripts/emote.js"></script>
+<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"></script>
+<link rel="stylesheet" type="text/css" href="css/style.css"></script>
 </head>
-<style>
-li.crop, li.brightness, li.saturation, li.hue {
- display: none;
-}
-
-#photocatch .photobooth ul {
-    background: rgba(0,0,0,0.1);
-    height: 40px;
-}
-
-#target {
-    width:200px;
-}
-
-#photocatch {
-    position: absolute;
-    left: -300px;
-}
-
-#gallery {
-   float: right;
-   position: fixed;
-   top:0px;
-   right:0px;
-   min-height:400px;
-   width:400px;
-   background: whitesmoke;
-}
-
-</style>
 <body>
-<div id="gallery">
-
+<div class="row">
+<div class="confidence col-lg-3"></div>
+<div class="smile col-lg-3"></div>
+<h1 class="col-lg-3">Likes</h1>
+<h1 class="col-lg-3">Dislikes</h1>
 </div>
-<div class="elephants">
-    <img class="target" />
+
+<div class="row">
+    <div class="elephants col-lg-6">
+        <img class="target" />
     </div>
+    
+    <div class="likes col-lg-3"> </div>
+    <div class="dislikes col-lg-3"> </div>
 </div>
 
-
-<div id="photocatch" style="width:200px;height:200px;background:whitesmoke">
+<video id="vid" height="426" width="640" style="visibility:hidden;" autoplay></video>
+<div id="photocatch" style="width:200px;height:200px;background:whitesmoke"></div>
 </body>
 </html>
