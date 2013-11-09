@@ -80,12 +80,12 @@
     padding: 0;
   }
 </style>
-<h1 class="center" id="headline">
-  <a href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
-    Web Speech API</a> Demonstration</h1>
+<script src="jquery-1.10.2.min.js"></script>
+<p id="userInput" style="font-size: 48pt;">-</p>
+
 <div id="info">
-  <p id="info_start">Click on the microphone icon and begin speaking.</p>
-  <p id="info_speak_now">Speak now.</p>
+  <!-- <p id="info_start">Click on the microphone icon and begin speaking.</p> -->
+  <!-- <p id="info_speak_now">Speak now.</p> -->
   <p id="info_no_speech">No speech was detected. You may need to adjust your
     <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
       microphone settings</a>.</p>
@@ -93,7 +93,7 @@
     No microphone was found. Ensure that a microphone is installed and that
     <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
     microphone settings</a> are configured correctly.</p>
-  <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
+  <!-- <p id="info_allow">Click the "Allow" button above to enable your microphone.</p> -->
   <p id="info_denied">Permission to use microphone was denied.</p>
   <p id="info_blocked">Permission to use microphone is blocked. To change,
     go to chrome://settings/contentExceptions#media-stream</p>
@@ -111,13 +111,15 @@
   <p>
 </div>
 <div class="center">
-  <div class="sidebyside" style="text-align:right">
+  <!-- <div class="sidebyside" style="text-align:right">
     <button id="copy_button" class="button">
       Copy and Paste</button>
     <div id="copy_info" class="info">
       Press Control-C to copy text.<br>(Command-C on Mac.)
     </div>
   </div>
+  -->
+  <!--
   <div class="sidebyside">
     <button id="email_button" class="button">
       Create Email</button>
@@ -126,14 +128,18 @@
       (See chrome://settings/handlers to change.)
     </div>
   </div>
+  -->
+
   <p>
   <div id="div_language">
     <select id="select_language" onchange="updateCountry()"></select>
     &nbsp;&nbsp;
     <select id="select_dialect"></select>
   </div>
+
 </div>
 <script>
+$(document).ready(function () {
 var langs =
 [['Afrikaans',       ['af-ZA']],
  ['Bahasa Indonesia',['id-ID']],
@@ -207,6 +213,11 @@ function SpeechRecognizer () {
     var status = {
         recognizing: false
     };
+    var copyButton;
+    var copyInfo;
+    var emailButton;
+    var startButton;
+    var $userInputField;
 
     //
     // Private functions
@@ -324,7 +335,11 @@ function SpeechRecognizer () {
 
                 //
                 // Show the last phrase that was captioned.
-                var targetPhrases = {yeah: 'yeah', uhhuh: 'uh huh'};
+                var targetPhrases = {
+                    yeah: 'yeah',
+                    uhhuh: 'uh huh',
+                    sure: 'sure'
+                };
                 var numPhrases = event.results.length;
                 if (event.results[numPhrases - 1].isFinal) {
                     var lastTranscript = event.results[numPhrases - 1][0].transcript;
@@ -334,7 +349,10 @@ function SpeechRecognizer () {
                     // Check if either the lastTranscript is in one of the target phrases (i.e., 'yeah' or 'uh huh').
                     for (var target in targetPhrases) {
                         if (targetPhrases[target].indexOf(lastTranscript) !== -1) {
-                            console.log(targetPhrases[target]);
+                            //
+                            // I need to push the code to call a function that does something over here.
+                            $userInputField.html(targetPhrases[target]);
+
                         }
                     }
                 }
@@ -349,13 +367,20 @@ function SpeechRecognizer () {
 
         //
         // Attach event listeners
-        var copyButton = document.getElementById('copy_button');
-        var emailButton = document.getElementById('email_button');
-        var startButton = document.getElementById('start_button');
+        copyButton = document.getElementById('copy_button');
+        emailButton = document.getElementById('email_button');
+        startButton = document.getElementById('start_button');
+        $userInputField = $("#userInput");
 
-        startButton.onclick = clickStartButton;
-        copyButton.onclick = clickCopyButton;
-        emailButton.onclick = clickEmailButton;
+        if (startButton) {
+            startButton.onclick = clickStartButton;
+        }
+        if (copyButton) {
+            copyButton.onclick = clickCopyButton;
+        }
+        if (emailButton) {
+            emailButton.onclick = clickEmailButton;
+        }
     }
 
     var first_char = /\S/;
@@ -370,9 +395,14 @@ function SpeechRecognizer () {
             status.recognizing = false;
             recognition.stop();
         }
-        copy_button.style.display = 'none';
-        copy_info.style.display = 'inline-block';
-        showInfo('');
+
+        if (copyButton) {
+            copyButton.style.display = 'none';
+        }
+        if (copyInfo) {
+            copyInfo.style.display = 'inline-block';
+        }
+        // showInfo('');
     }
 
     function clickEmailButton(e) {
@@ -443,10 +473,15 @@ function SpeechRecognizer () {
             return;
         }
         current_style = style;
-        copy_button.style.display = style;
-        email_button.style.display = style;
-        copy_info.style.display = 'none';
-        email_info.style.display = 'none';
+
+        if (copyButton) {
+            copyButton.style.display = style;
+            copyInfo.style.display = 'none';
+        }
+        if (emailButton) {
+            emailButton.style.display = style;
+            // emailInfo.style.display = 'none';
+        }
     }
 
     function upgrade() {
@@ -463,4 +498,6 @@ function SpeechRecognizer () {
     return oPublic;
 }
 var recognizer = new SpeechRecognizer();
+
+});
 </script>
