@@ -7,6 +7,18 @@ li.crop, li.brightness, li.saturation, li.hue {
     height: 40px;
 }
 
+.smile {
+    height:10px;
+}
+
+.smile.happy {
+   background: green;
+}
+.smile.sad {
+   background: red;
+}
+
+
 #target {
     width:200px;
 }
@@ -16,12 +28,6 @@ li.crop, li.brightness, li.saturation, li.hue {
     left: -300px;
 }
 
-#gallery {
-   float: right;
-   position: fixed;
-   top:0px;
-   right:0px;
-   min-height:400px;
-   width:400px;
-   background: whitesmoke;
+#dislikes {
+   border-right: whitesmoke;
 }

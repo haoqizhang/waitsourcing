@@ -1,14 +1,14 @@
 {
   "name": "SmileDetectJS",
-  "_cacheHeaders": {
-    "ETag": "\"c2a998cfb320dea586a66c79e2446ca1\"",
-    "Content-Length": "30217",
-    "Content-Type": "text/html; charset=utf-8"
+  "homepage": "https://github.com/roironn/SmileDetectJS",
+  "_release": "8522ee8b1f",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "8522ee8b1f5d06029ca7f786bc9ee350381307cb"
   },
-  "_release": "e-tag:c2a998cfb",
-  "main": "index",
-  "_source": "https://github.com/roironn/SmileDetectJS",
-  "_target": "*",
-  "_originalSource": "https://github.com/roironn/SmileDetectJS",
+  "_source": "https://github.com/roironn/SmileDetectJS.git",
+  "_target": "master",
+  "_originalSource": "https://github.com/roironn/SmileDetectJS.git",
   "_direct": true
 }
