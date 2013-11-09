@@ -1,21 +1,3 @@
-var tweets = null;
-
-
-function getTweets(keyword){
-    var url = "https://api.twitter.com/1.1/search/tweets.json?q=" + keyword + "&result_type=mixed&count=20";
-    $.ajax( {
-	       type: "GET",
-		   async: false,
-		   url: url,
-		   contentType: "application/json; charset=utf-8",
-		   dataType: "json",
-		   success: function (data) {
-		   tweets = data;
-		   console.log(data);
-	       }});
-}
-
-
 var elephants = [  
 		 {"type":"image",
 		  "content":"african-elephant_435_600x450.jpg"},
@@ -31,20 +13,8 @@ var elephants = [
 		  "content":"elephant-06.jpg"}];
     
 
-// var elephants = [  
-// 		 {"type":"image",
-// 		  "content":"http://images.nationalgeographic.com/wpf/media-live/photos/000/004/cache/african-elephant_435_600x450.jpg"},
-// 		 {"type":"image",
-// 		  "content":"http://www.personal.psu.edu/afr3/blogs/SIOW/elephant.jpg"},
-// 		 {"type":"image",
-// 		  "content":"http://upload.wikimedia.org/wikipedia/commons/3/37/African_Bush_Elephant.jpg"},
-// 		 {"type":"image",
-// 		  "content":"http://spirit-animals.com/wp-content/uploads/2012/09/Elephant2.jpg"},
-// 		 {"type":"image",
-// 		  "content":"http://images2.fanpop.com/images/photos/5300000/Elephant-animals-5370280-2560-1920.jpg"},
-// 		 {"type":"image",
-// 		  "content":"http://eofdreams.com/data_images/dreams/elephant/elephant-06.jpg"}];
-    
+// assume task pairs or stream of tasks
+// fill this stream with data that loads on page scrolls
 
 
 
