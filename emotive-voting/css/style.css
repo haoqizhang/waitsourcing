@@ -1,0 +1,27 @@
+li.crop, li.brightness, li.saturation, li.hue {
+ display: none;
+}
+
+#photocatch .photobooth ul {
+    background: rgba(0,0,0,0.1);
+    height: 40px;
+}
+
+#target {
+    width:200px;
+}
+
+#photocatch {
+    position: absolute;
+    left: -300px;
+}
+
+#gallery {
+   float: right;
+   position: fixed;
+   top:0px;
+   right:0px;
+   min-height:400px;
+   width:400px;
+   background: whitesmoke;
+}

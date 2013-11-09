@@ -1,0 +1,14 @@
+{
+  "name": "SmileDetectJS",
+  "_cacheHeaders": {
+    "ETag": "\"c2a998cfb320dea586a66c79e2446ca1\"",
+    "Content-Length": "30217",
+    "Content-Type": "text/html; charset=utf-8"
+  },
+  "_release": "e-tag:c2a998cfb",
+  "main": "index",
+  "_source": "https://github.com/roironn/SmileDetectJS",
+  "_target": "*",
+  "_originalSource": "https://github.com/roironn/SmileDetectJS",
+  "_direct": true
+}
