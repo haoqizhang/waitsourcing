@@ -335,24 +335,38 @@ function SpeechRecognizer () {
 
                 //
                 // Show the last phrase that was captioned.
-                var targetPhrases = {
-                    yeah: 'yeah',
-                    uhhuh: 'uh huh',
-                    sure: 'sure'
-                };
+                // Hard code everything that Google thinks 'uh huh' or 'yeah'
+                var yeahWords = ['yeah', 'yes', 'young', 'yo'];
+                var uhhuhWords = ['uh', 'huh', 'haha', 'Uhaul', 'Ohio', 'Ojo'];
+
                 var numPhrases = event.results.length;
-                if (event.results[numPhrases - 1].isFinal) {
+                // if (event.results[numPhrases - 1].isFinal) {
+                if (true) {
                     var lastTranscript = event.results[numPhrases - 1][0].transcript;
                     lastTranscript = lastTranscript.trim();
 
                     //
                     // Check if either the lastTranscript is in one of the target phrases (i.e., 'yeah' or 'uh huh').
-                    for (var target in targetPhrases) {
-                        if (targetPhrases[target].indexOf(lastTranscript) !== -1) {
-                            //
+                    var yeahFlag = false;
+                    var uhhuhFlag = false;
+                    //
+                    // Check if the user said 'yeah' or 'uhhuh'
+                    for (var i = 0; i < yeahWords.length; i++) {
+                        if (lastTranscript.indexOf(yeahWords[i]) !== -1) {
                             // I need to push the code to call a function that does something useful here.
-                            $userInputField.html(targetPhrases[target]);
-
+                            $userInputField.html('Yeah');
+                            yeahFlag = true;
+                            break;
+                       }
+                    }
+                    if (!yeahFlag) {
+                        for (var i = 0; i < uhhuhWords.length; i++) {
+                            if (lastTranscript.indexOf(uhhuhWords[i]) !== -1) {
+                                // I need to push the code to call a function that does something useful here.
+                                $userInputField.html('Uh huh');
+                                uhhuhFlag = true;
+                                break;
+                            }
                         }
                     }
                 }
