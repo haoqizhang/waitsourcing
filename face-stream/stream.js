@@ -9,7 +9,9 @@ var binary = false;
 
 $(function() {
 	init();
-	$('button').click(function() {
+	$('#start').click(function() {
+		query = $('#keyword').val();
+
 		    if ($(this).text() == 'Start'){
 			    t = setTimeout(loadNew, interval);
 			    $(this).text('Stop');
