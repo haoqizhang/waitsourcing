@@ -2,39 +2,95 @@ var waitSource = waitSource || {};
 
 function ImageSelection () {
     var oPublic = {};
+    var status = {
+        currentImageIndex: 0
+    };
+
+
+
+
+    var imageList = [
+        "img/meme_same_pictures/7zpp3.jpg",
+        "img/meme_same_pictures/8puc8.jpg",
+        "img/meme_same_pictures/8va9j.jpg",
+        "img/meme_same_pictures/9nfcr.jpg",
+        "img/meme_same_pictures/82fw6.jpg",
+        "img/meme_same_pictures/88y6z.jpg",
+        "img/meme_same_pictures/89guf.jpg",
+        "img/meme_same_pictures/91lco.jpg",
+        "img/meme_same_pictures/938od.jpg",
+        "img/meme_same_pictures/946o5.jpg",
+        "img/meme_same_pictures/949l9.jpg",
+        "img/meme_same_pictures/a1eml.jpg",
+        "img/meme_same_pictures/apqv0.jpg",
+        "img/meme_same_pictures/aww6j.jpg",
+        "img/meme_same_pictures/b1np4.jpg",
+        "img/meme_same_pictures/bvj0a.jpg",
+        "img/meme_same_pictures/c92gn.jpg",
+        "img/meme_same_pictures/d2y4x.jpg"
+    ];
+
+    //
+    // http://memegenerator.net/
+    var imageList = [
+        "img/meme_random/pi6yk.jpg",
+        "img/meme_random/pi82o.jpg",
+        "img/meme_random/pi797.jpg",
+        "img/meme_random/pib3j.jpg",
+        "img/meme_random/pic5e.jpg",
+        "img/meme_random/piccr.jpg",
+        "img/meme_random/picdo.jpg",
+        "img/meme_random/picim.jpg",
+        "img/meme_random/picpk.jpg",
+        "img/meme_random/pifdq.jpg",
+        "img/meme_random/pih57.jpg"
+    ];
 
     function _init() {
         $('#choose_uhhuh').click(clickUhHuh);
         $('#choose_yeahok').click(clickYeahOk);
 
-        loadInstance();
+
+        status.currentImageIndex++;
+        status.currentImageIndex++;
+
+        $("#leftcontent").html()
+        loadImage('left');
+        loadImage('right');
+
+        // loadInstance();
     }
-    var tweets = null;
+
+    function loadImage (side) {
+        // Load image on either left of right side.n
+
+        //
+        // Check if the image index is below the length of the image list.
+        if (status.currentImageIndex < imageList.length) {
+            var url = imageList[status.currentImageIndex];
+            var dom = "<img class='imgoptions' src='" + url + "'></img>";
+            if (side == 'left') {
+                $("#leftcontent").html(dom);
+            } else {
+                $("#rightcontent").html(dom);
+            }
+
+            status.currentImageIndex++;
+        }
+    }
+
 
 
     function clickYeahOk () {
-        // This is a callback function for clicking yeah, ok.
+        // This is a callback function for clicking "yeah, ok."
         oPublic.yeahOk();
     }
 
     function clickUhHuh () {
-        // This
+        // This is a callback function for clicking "uh huh."
         oPublic.uhHuh();
     }
 
-    function getTweets(keyword){
-        var url = "https://api.twitter.com/1.1/search/tweets.json?q=" + keyword + "&result_type=mixed&count=20";
-        $.ajax( {
-            type: "GET",
-            async: false,
-            url: url,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
-                tweets = data;
-                console.log(data);
-            }});
-    }
 
 
     var elephants = [
@@ -76,7 +132,7 @@ function ImageSelection () {
 
         $( "#points" ).animate({
             opacity: 0.5,
-            'font-size': "100px",
+            'font-size': "100px"
         }, 2000, function() {
             $("#points").css({
                 opacity: 1,
@@ -104,19 +160,28 @@ function ImageSelection () {
     //
     // Public functions
     oPublic.yeahOk = function (e) {
-        // $('#yeahok').trigger("play");
+        $("#rightcontent").find('img').animate({width: '420px', height: '420px'}, 700, function (){
+            $(this).animate({width: '400px', height: '400px'});
+        });
+
         increaseScore();
-        loadInstance();
+        // loadInstance();
+        loadImage('left');
     };
 
     oPublic.uhHuh = function () {
-        // $('#uhhuh').trigger("play");
+        $("#leftcontent").find('img').animate({width: '420px', height: '420px'}, 700, function (){
+            $(this).animate({width: '400px', height: '400px'});
+        });
+
         increaseScore();
-        loadInstance();
+        // loadInstance();
+        loadImage('right');
+
     };
 
     //
     // Initialize
-    _init()
+    _init();
     return oPublic;
 }

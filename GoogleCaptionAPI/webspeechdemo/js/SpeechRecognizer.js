@@ -117,7 +117,7 @@ function SpeechRecognizer () {
             start_button.style.display = 'inline-block';
             recognition = new webkitSpeechRecognition();
             recognition.continuous = true;
-            recognition.interimResults = true;
+            // recognition.interimResults = true;
             recognition.interimResults = false;
 
             recognition.onstart = function() {
@@ -169,6 +169,10 @@ function SpeechRecognizer () {
                     create_email = false;
                     createEmail();
                 }
+
+                //
+                // debug
+                // clickStartButton();
             };
 
             recognition.onresult = function(event) {
@@ -234,6 +238,7 @@ function SpeechRecognizer () {
                         waitSource.imageSelection.uhHuh();
                     }
                 }
+                console.log("Hey");
             };
 
         }
