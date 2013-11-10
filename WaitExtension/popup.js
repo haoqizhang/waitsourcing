@@ -4,7 +4,7 @@
 
 /**
  * Global variable containing the query we'd like to pass to Flickr. In this
- * case, kittens!
+ * case, kittens, puppies, flower, tree etc.. 
  *
  * @type {string}
  */
@@ -36,7 +36,7 @@ var kittenGenerator = {
       'per_page=4',
 
   /**
-   * Sends an XHR GET request to grab photos of lots and lots of kittens. The
+   * Sends an XHR GET request to grab photos of lots and lots of photos. The
    * XHR's 'onload' event is hooks up to the 'showPhotos_' method.
    *
    * @public
@@ -59,10 +59,21 @@ var kittenGenerator = {
   showPhotos_: function (e) {
     var kittens = e.target.responseXML.querySelectorAll('photo');
     for (var i = 0; i < kittens.length; i++) {
-      var img = document.createElement('img');
-      img.src = this.constructKittenURL_(kittens[i]);
-      img.setAttribute('alt', kittens[i].getAttribute('title'));
-      document.body.appendChild(img);
+    var img = document.createElement('img');
+	img.src = this.constructKittenURL_(kittens[i]);	   
+    img.setAttribute('alt', kittens[i].getAttribute('title')); 
+	img.id = i;
+    document.body.appendChild(img); 
+	
+    var link = document.getElementById(i);
+	console.log("hi" + link);
+    // onClick's logic below:
+    link.addEventListener('click', function() {
+        document.getElementById("demo").innerHTML="Thank you!";
+		console.log(i);
+		//chrome.extension.getBackgroundPage().window.location.reload();
+    });
+
     }
   },
 
@@ -87,3 +98,4 @@ var kittenGenerator = {
 document.addEventListener('DOMContentLoaded', function () {
   kittenGenerator.requestKittens();
 });
+
