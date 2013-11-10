@@ -11,10 +11,24 @@ $ ->
     el.on("image", (event, dataUrl ) ->
         localStorage.setItem("imageData", dataUrl)
     )
-    sd = new SmileDetector("vid")
-    sd.onSmile(smileCb)
-    sd.start(500)
-    cycleImages(elephants)
+    
+    # Hack to delay loading of Smile detection
+    checkFlickr = () ->
+        if(photostream[0])
+            startSmiles()
+        else
+            console.log "Flickr not yet loaded"
+            a = window.setTimeout(checkFlickr, 1000)
+    checkFlickr()
+    
+    startSmiles = () ->
+        sd = new SmileDetector("vid")
+        sd.onSmile(smileCb)
+        sd.start(500)
+        console.log "started"
+        
+    #temp = window.setTimeout(delay(), 3000)
+    # cycleImages(elephants)
     
 cycleImages = (images) ->
     $(".elephants .target").attr('src', images[0])
@@ -29,42 +43,46 @@ click = ->
 # Smile detection callback
 smileCb = (isSmile) ->
     #Get image:
-    imgURL = $(".elephants .target").attr('src')
-    
-    # Set Previous Image and current
-    lastIMG = localStorage.getItem("currentImage")
-    localStorage.setItem("LastImage", lastIMG)
-    localStorage.setItem("currentImage", imgURL)
-    
-    click()
-    
-    if lastIMG isnt imgURL
-        makeJudgement()
-        localStorage.setItem("currentImageLikes", 0)
-        localStorage.setItem("currentImageDislikes", 0)
-    
-    # React to Smile (or lack of)
-    if (isSmile)
-        $(".smile").removeClass("sad")
-        $(".smile").addClass("happy")
-        localStorage.setItem("currentImageLikes", parseInt(localStorage.getItem("currentImageLikes")+1))
-    else
-        localStorage.setItem("currentImageDislikes", parseInt(localStorage.getItem("currentImageDislikes"))+1)
-        $(".smile").removeClass("happy")
-        $(".smile").addClass("sad")
+    #try
+        imgURL = photostream[getID()].src.replace("_z", "_s")
         
-    $('.confidence').text("P(like)="+getConfidence())
-
+        # Set Previous Image and current
+        lastIMG = localStorage.getItem("currentImage")
+        localStorage.setItem("LastImage", lastIMG)
+        localStorage.setItem("currentImage", imgURL)
+        
+        if lastIMG isnt imgURL
+            makeJudgement()
+            localStorage.setItem("currentImageLikes", 0)
+            localStorage.setItem("currentImageDislikes", 0)
+        
+        # React to Smile (or lack of)
+        if (isSmile)
+            $(".smile").removeClass("sad")
+            $(".smile").addClass("happy")
+            localStorage.setItem("currentImageLikes", parseInt(localStorage.getItem("currentImageLikes")+1))
+        else
+            localStorage.setItem("currentImageDislikes", parseInt(localStorage.getItem("currentImageDislikes"))+1)
+            $(".smile").removeClass("happy")
+            $(".smile").addClass("sad")
+            
+        click()
+            
+        $('.confidence').text("P(like)="+getConfidence())
+    #catch
+    #    console.log "The flickr stuff isn't really loaded yet, you idiot."
 
 makeJudgement = ->
     conf = getConfidence()
     el = if conf > 0.49 then ".likes" else ".dislikes"
 
     dataUrl = localStorage.getItem("imageData")
-    elephant = $(".elephants .target").attr('src')
+    img = localStorage.getItem("LastImage")
+    #img = $(".elephants .target").attr('src')
+    #img = photostream[getID()].src.replace("_z", "_s")
     $("<div class='row'>")
         .append( '<img src="' + dataUrl + '" class="col-lg-6" >')
-        .append( '<img src="'+elephant+'"  class="col-lg-6" width="200px" height="200px" >')
+        .append( '<img src="'+img+'"  class="col-lg-6" >')
         .prependTo(el)
     
 getConfidence = ->

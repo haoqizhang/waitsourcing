@@ -2,14 +2,15 @@ var query = "funny";
 var photostream = [];
 
 var t = 0;
-var interval = 2000;
+var flickerInterval = 3000;
 var currentID = 0;
 
 var binary = false;
 
 $(function() {
 	init();
-	$('button').click(function() {
+    t = setTimeout(loadNew, flickerInterval);
+	/*$('button').click(function() {
 		    if ($(this).text() == 'Start'){
 			    t = setTimeout(loadNew, interval);
 			    $(this).text('Stop');
@@ -19,8 +20,8 @@ $(function() {
 			    clearTimeout(t);
 			    $(this).text('Start');
 			}
-		});
-	});
+		}); */
+});
 
 function init(){
     kittenGenerator.requestKittens();
@@ -29,7 +30,7 @@ function init(){
 function loadInitial(photos){
     photostream = photos;
     for(var i = 0; i < 5; i++){
-	var stuff = $('<li></li>');
+	var stuff = $('<li class="col-lg-1"></li>');
 	$('#photostream').prepend(stuff);
     }
 }
@@ -50,6 +51,6 @@ function loadNew() {
 	smoothAdd('photostream', photostream[current]);
 	currentID+=1;
     }
-    t = setTimeout(loadNew, interval);
+    t = setTimeout(loadNew, flickerInterval);
 }
 	
