@@ -3,17 +3,30 @@
   var click, cycleImages, getConfidence, makeJudgement, smileCb;
 
   $(function() {
-    var el, elephants, sd;
+    var checkFlickr, el, elephants, startSmiles;
     elephants = ['images/elephant1.jpg', 'images/elephant2.jpg', 'images/elephant1.jpg', 'images/elephant2.jpg'];
     el = $('#photocatch');
     el.photobooth();
     el.on("image", function(event, dataUrl) {
       return localStorage.setItem("imageData", dataUrl);
     });
-    sd = new SmileDetector("vid");
-    sd.onSmile(smileCb);
-    sd.start(500);
-    return cycleImages(elephants);
+    checkFlickr = function() {
+      var a;
+      if (photostream[0]) {
+        return startSmiles();
+      } else {
+        console.log("Flickr not yet loaded");
+        return a = window.setTimeout(checkFlickr, 1000);
+      }
+    };
+    checkFlickr();
+    return startSmiles = function() {
+      var sd;
+      sd = new SmileDetector("vid");
+      sd.onSmile(smileCb);
+      sd.start(500);
+      return console.log("started");
+    };
   });
 
   cycleImages = function(images) {
@@ -34,11 +47,10 @@
 
   smileCb = function(isSmile) {
     var imgURL, lastIMG;
-    imgURL = $(".elephants .target").attr('src');
+    imgURL = photostream[getID()].src.replace("_z", "_s");
     lastIMG = localStorage.getItem("currentImage");
     localStorage.setItem("LastImage", lastIMG);
     localStorage.setItem("currentImage", imgURL);
-    click();
     if (lastIMG !== imgURL) {
       makeJudgement();
       localStorage.setItem("currentImageLikes", 0);
@@ -53,16 +65,17 @@
       $(".smile").removeClass("happy");
       $(".smile").addClass("sad");
     }
+    click();
     return $('.confidence').text("P(like)=" + getConfidence());
   };
 
   makeJudgement = function() {
-    var conf, dataUrl, el, elephant;
+    var conf, dataUrl, el, img;
     conf = getConfidence();
     el = conf > 0.49 ? ".likes" : ".dislikes";
     dataUrl = localStorage.getItem("imageData");
-    elephant = $(".elephants .target").attr('src');
-    return $("<div class='row'>").append('<img src="' + dataUrl + '" class="col-lg-6" >').append('<img src="' + elephant + '"  class="col-lg-6" width="200px" height="200px" >').prependTo(el);
+    img = localStorage.getItem("LastImage");
+    return $("<div class='row'>").append('<img src="' + dataUrl + '" class="col-lg-6" >').append('<img src="' + img + '"  class="col-lg-6" >').prependTo(el);
   };
 
   getConfidence = function() {
