@@ -49,9 +49,9 @@
     var imgURL, lastIMG;
     imgURL = photostream[getID()].src.replace("_z", "_s");
     lastIMG = localStorage.getItem("currentImage");
-    localStorage.setItem("LastImage", lastIMG);
-    localStorage.setItem("currentImage", imgURL);
-    if (lastIMG !== imgURL) {
+    if (imgURL !== lastIMG) {
+      localStorage.setItem("LastImage", lastIMG - 1);
+      localStorage.setItem("currentImage", imgURL);
       makeJudgement();
       localStorage.setItem("currentImageLikes", 0);
       localStorage.setItem("currentImageDislikes", 0);

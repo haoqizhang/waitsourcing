@@ -47,9 +47,9 @@ smileCb = (isSmile) ->
         imgURL = photostream[getID()].src.replace("_z", "_s")
         lastIMG = localStorage.getItem("currentImage")
         
-        if imgURL isnt lastIMG:
+        if imgURL isnt lastIMG
             # Set Previous Image and current
-            localStorage.setItem("LastImage", lastIMG - 1)
+            localStorage.setItem("LastImage", lastIMG-1)
             localStorage.setItem("currentImage", imgURL)
             makeJudgement()
             localStorage.setItem("currentImageLikes", 0)
