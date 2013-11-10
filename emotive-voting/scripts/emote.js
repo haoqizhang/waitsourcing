@@ -46,11 +46,13 @@
   };
 
   smileCb = function(isSmile) {
-    var imgURL, lastIMG;
-    imgURL = photostream[getID()].src.replace("_z", "_s");
+    var id, imgURL, lastIMG, oldID;
+    id = getID();
+    imgURL = photostream[id].src.replace("_z", "_s");
     lastIMG = localStorage.getItem("currentImage");
     if (imgURL !== lastIMG) {
-      localStorage.setItem("LastImage", photostream[getID() - 1].src.replace("_z", "_s"));
+      oldID = id > 0 ? id - 1 : 0;
+      localStorage.setItem("LastImage", photostream[oldID].src.replace("_z", "_s"));
       localStorage.setItem("currentImage", imgURL);
       makeJudgement();
       localStorage.setItem("currentImageLikes", 0);

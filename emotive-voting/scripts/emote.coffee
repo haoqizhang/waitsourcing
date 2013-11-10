@@ -44,12 +44,14 @@ click = ->
 smileCb = (isSmile) ->
     #Get image:
     #try
-        imgURL = photostream[getID()].src.replace("_z", "_s")
+        id = getID()
+        imgURL = photostream[id].src.replace("_z", "_s")
         lastIMG = localStorage.getItem("currentImage")
         
         if imgURL isnt lastIMG
             # Set Previous Image and current
-            localStorage.setItem("LastImage", photostream[getID()-1].src.replace("_z", "_s"))
+            oldID = if id > 0 then (id - 1) else 0
+            localStorage.setItem("LastImage", photostream[oldID].src.replace("_z", "_s"))
             localStorage.setItem("currentImage", imgURL)
             makeJudgement()
             localStorage.setItem("currentImageLikes", 0)
