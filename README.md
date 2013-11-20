@@ -7,7 +7,7 @@ A series of demos of crowdsourcing in null-time or otherwise inactive environmen
 
 Rate images with your facial expressions.
 
-# GoogleCaptionAPI/webspeechdemo/
+# verbal-coded-input/
 
 Complete tasks with affirmative grunts: an 'uh-huh' or a 'yeah'.
 
