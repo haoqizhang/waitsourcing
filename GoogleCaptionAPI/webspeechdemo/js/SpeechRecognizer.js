@@ -200,7 +200,7 @@ function SpeechRecognizer () {
                 // Show the last phrase that was captioned.
                 // Hard code everything that Google thinks 'uh huh' or 'yeah'
                 var yeahWords = ['yeah', 'yes', 'young', 'yo'];
-                var uhhuhWords = ['uh', 'huh', 'haha', 'Uhaul', 'Ohio', 'Ojo'];
+                var uhhuhWords = ['uh', 'huh', 'haha', 'Uhaul', 'Ohio', 'Ojo', 'interesting'];
 
                 var numPhrases = event.results.length;
                 if (event.results[numPhrases - 1].isFinal) {
@@ -234,7 +234,7 @@ function SpeechRecognizer () {
 
                     if (yeahFlag) {
                         waitSource.imageSelection.yeahOk();
-                    } else {
+                    } else if (uhhuhFlag) {
                         waitSource.imageSelection.uhHuh();
                     }
                 }
