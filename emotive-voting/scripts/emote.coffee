@@ -44,12 +44,14 @@ click = ->
 smileCb = (isSmile) ->
     #Get image:
     #try
-        imgURL = photostream[getID()].src.replace("_z", "_s")
+        id = getID()
+        imgURL = photostream[id].src.replace("_z", "_s")
         lastIMG = localStorage.getItem("currentImage")
         
-        if imgURL isnt lastIMG:
+        if imgURL isnt lastIMG
             # Set Previous Image and current
-            localStorage.setItem("LastImage", lastIMG - 1)
+            oldID = if id > 0 then (id - 1) else 0
+            localStorage.setItem("LastImage", photostream[oldID].src.replace("_z", "_s"))
             localStorage.setItem("currentImage", imgURL)
             makeJudgement()
             localStorage.setItem("currentImageLikes", 0)
@@ -64,8 +66,9 @@ smileCb = (isSmile) ->
             localStorage.setItem("currentImageDislikes", parseInt(localStorage.getItem("currentImageDislikes"))+1)
             $(".smile").removeClass("happy")
             $(".smile").addClass("sad")
-            
-        click()
+        
+        if getTotal() is 2
+            click()
             
         $('.confidence').text("P(like)="+getConfidence())
     #catch
@@ -87,5 +90,9 @@ makeJudgement = ->
 getConfidence = ->
     likes = parseInt(localStorage.getItem("currentImageLikes"))
     dislikes = parseInt(localStorage.getItem("currentImageDislikes"))
-    conf = likes / (likes+dislikes)
-    conf
+    likes / (likes+dislikes)
+    
+getTotal = ->
+    likes = parseInt(localStorage.getItem("currentImageLikes"))
+    dislikes = parseInt(localStorage.getItem("currentImageDislikes"))
+    likes + dislikes
